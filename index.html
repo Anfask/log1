@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Connected</title>
+    <style>
+        @font-face {
+            font-family: 'MyLocalFont';
+            src: url('fonts/SDGlitch_Demo.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'MyLocalFontBold';
+            src: url('fonts/SDGlitch_Demo.ttf') format('truetype');
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'MyLocalFont', Arial, sans-serif;
+            background-color: black;
+            color: rgb(255, 0, 0);
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        #message {
+            position: absolute;
+            z-index: 1;
+            font-size: 5em;
+            text-align: center;
+            color: rgb(255, 0, 0);
+            animation: scale 2s infinite;
+            font-family: 'MyLocalFontBold', Arial, sans-serif;
+        }
+        #footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: rgb(21, 255, 0);
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+        }
+        #footer1{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10%;
+            color: rgb(21, 255, 0);
+            text-align: center;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+        }
+        @keyframes scale {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="/back.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div id="message">Your System Connected to the Server</div>
+    <div id="footer1">Dude login the windows</div>
+    <div id="footer">Loading IP address...</div>
+    <script>
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('footer').innerText = 'Your IP address is: ' + data.ip;
+            })
+            .catch(error => {
+                document.getElementById('footer').innerText = 'Unable to fetch IP address.';
+                console.error('Error fetching IP address:', error);
+            });
+    </script>
+</body>
+</html>
